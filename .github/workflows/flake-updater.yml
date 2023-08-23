@@ -18,3 +18,4 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@main
         with:
           inputs: nixpkgs flake-parts
+          token: ${{ secrets.GH_PAT }}
