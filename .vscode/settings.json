@@ -1,0 +1,17 @@
+{
+    "nix.enableLanguageServer": true,
+    "nix.serverSettings": {
+        "nixd": {
+            "formatting": {
+                "command": "alejandra",
+            },
+            "options": {
+                "enable": true,
+                "target": {
+                    "installable": "github:hercules-ci/flake-parts#debug.options",
+                }
+            },
+        },
+    },
+    "nix.serverPath": "nixd"
+}
