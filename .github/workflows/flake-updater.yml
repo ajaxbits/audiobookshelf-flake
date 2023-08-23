@@ -19,3 +19,4 @@ jobs:
         with:
           inputs: nixpkgs flake-parts
           token: ${{ secrets.GH_PAT }}
+          pr-assignees: ajaxbits
