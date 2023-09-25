@@ -111,6 +111,7 @@
           packages = [
             pkgs.nodejs_18
             pkgs.ffmpeg-full
+
             inputs.tone.packages.${system}.default
             inputs.nixd.packages.${system}.default
             inputs.alejandra.packages.${system}.default
