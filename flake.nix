@@ -2,17 +2,20 @@
   description = "Audiobookshelf flake";
 
   inputs = {
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*.tar.gz";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    alejandra.url = "https://flakehub.com/f/kamadorueda/alejandra/3.0.0.tar.gz";
-    nixd.url = "https://flakehub.com/f/nix-community/nixd/1.2.2.tar.gz";
+    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
+    nixd.url = "github:nix-community/nixd/1.2.2";
 
     audiobookshelf = {
       url = "github:advplyr/audiobookshelf/v2.3.3";
       flake = false;
     };
-    tone.url = "https://flakehub.com/f/ajaxbits/tone/0.1.5.tar.gz";
+    tone.url = "github:ajaxbits/tone-flake";
+    tone.inputs.nixpkgs.follows = "nixpkgs";
+    tone.inputs.alejandra.follows = "alejandra";
+    tone.inputs.nixd.follows = "nixd";
   };
 
   outputs = {
