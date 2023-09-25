@@ -90,7 +90,7 @@
         };
       in {
         packages.default = pkgs.buildNpmPackage {
-          inherit pname version;
+          inherit pname version description;
           src = inputs.audiobookshelf;
 
           buildInputs = [pkgs.util-linux];
@@ -119,7 +119,6 @@
           packages = [
             pkgs.nodejs_18
             pkgs.ffmpeg-full
-
             inputs.tone.packages.${system}.default
             inputs.nixd.packages.${system}.default
             inputs.alejandra.packages.${system}.default
