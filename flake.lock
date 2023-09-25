@@ -24,16 +24,16 @@
     "audiobookshelf": {
       "flake": false,
       "locked": {
-        "lastModified": 1689804837,
-        "narHash": "sha256-wSIA2KKDKf3DNgYNNIyYNT8xyPWCZvwLcWuDhWOZpLs=",
+        "lastModified": 1694985199,
+        "narHash": "sha256-Eqi6QVX8ZxX87IJcDNlDEzWYH7FBvYMs/iBAopLGYl4=",
         "owner": "advplyr",
         "repo": "audiobookshelf",
-        "rev": "c2793fe29b96707908524406742c02c3e40634f7",
+        "rev": "e56b8edc0a455af24e75a28aefd2e1d27a36c59d",
         "type": "github"
       },
       "original": {
         "owner": "advplyr",
-        "ref": "v2.3.3",
+        "ref": "v2.4.3",
         "repo": "audiobookshelf",
         "type": "github"
       }

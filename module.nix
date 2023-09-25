@@ -102,32 +102,58 @@ in {
         pkgs.util-linux
       ];
       serviceConfig = {
-        Type = "simple";
-        WorkingDirectory = "audiobookshelf";
+        WorkingDirectory = mkDefault "/var/lib/audiobookshelf";
         ExecStart = "node ${cfg.package}/opt/index.js";
         ExecReload = "kill -HUP $MAINPID";
         Restart = "always";
         User = cfg.user;
         Group = cfg.group;
-        StateDirectory = "audiobookshelf";
+        StateDirectory = mkDefault "audiobookshelf";
+        StateDirectoryMode = "0700";
         ProtectHome = true;
         ProtectSystem = "strict";
-        PrivateTmp = true;
         PrivateDevices = true;
         ProtectHostname = true;
         ProtectClock = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        NoNewPrivileges = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;
         PrivateMounts = true;
+        Type = "simple";
+        UMask = "0077";
+        TimeoutSec = 15;
+        NoNewPrivileges = true;
+        SystemCallArchitectures = "native";
+        RestrictNamespaces = !config.boot.isContainer;
+        ProtectControlGroups = !config.boot.isContainer;
+        ProtectKernelLogs = !config.boot.isContainer;
+        ProtectKernelModules = !config.boot.isContainer;
+        ProtectKernelTunables = !config.boot.isContainer;
+        LockPersonality = true;
+        PrivateTmp = !config.boot.isContainer;
+        SystemCallFilter = [
+          "~@clock"
+          "~@aio"
+          "~@chown"
+          "~@cpu-emulation"
+          "~@debug"
+          "~@keyring"
+          "~@memlock"
+          "~@module"
+          "~@mount"
+          "~@obsolete"
+          "~@privileged"
+          "~@raw-io"
+          "~@reboot"
+          "~@setuid"
+          "~@swap"
+        ];
+        SystemCallErrorNumber = "EPERM";
       };
     };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
   };
+
+  meta.maintainers = with lib.maintainers; [ajaxbits];
 }

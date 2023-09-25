@@ -9,7 +9,7 @@
     nixd.url = "github:nix-community/nixd/1.2.2";
 
     audiobookshelf = {
-      url = "github:advplyr/audiobookshelf/v2.3.3";
+      url = "github:advplyr/audiobookshelf/v2.4.3";
       flake = false;
     };
     tone.url = "github:ajaxbits/tone-flake";
@@ -112,6 +112,8 @@
             chmod +x $out/bin/${pname}
           '';
         };
+
+        nixosModules.audiobookshelf = import ./module.nix;
 
         formatter = inputs.alejandra.packages.${system}.default;
 
