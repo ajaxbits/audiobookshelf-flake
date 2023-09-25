@@ -88,46 +88,45 @@
           ffmpeg-full = pkgs.ffmpeg-full;
           tone = inputs.tone.packages.${system}.default;
         };
-      in
-        {
-          packages.default = pkgs.buildNpmPackage {
-            inherit pname version description;
-            src = inputs.audiobookshelf;
+      in {
+        packages.default = pkgs.buildNpmPackage {
+          inherit pname version description;
+          src = inputs.audiobookshelf;
 
-            buildInputs = [pkgs.util-linux];
-            nativeBuildInputs = [pkgs.python3];
+          buildInputs = [pkgs.util-linux];
+          nativeBuildInputs = [pkgs.python3];
 
-            dontNpmBuild = true;
-            npmInstallFlags = ["--only-production"];
-            npmDepsHash = "sha256-gueSlQh4tRTjIWvpNG2cj1np/zUGbjsnv3fA2owtiQY=";
+          dontNpmBuild = true;
+          npmInstallFlags = ["--only-production"];
+          npmDepsHash = "sha256-gueSlQh4tRTjIWvpNG2cj1np/zUGbjsnv3fA2owtiQY=";
 
-            installPhase = ''
-              mkdir -p $out/opt/client
-              cp -r index.js server package* node_modules $out/opt/
-              cp -r ${client}/lib/node_modules/${pname}-client/dist $out/opt/client/dist
-              mkdir $out/bin
+          installPhase = ''
+            mkdir -p $out/opt/client
+            cp -r index.js server package* node_modules $out/opt/
+            cp -r ${client}/lib/node_modules/${pname}-client/dist $out/opt/client/dist
+            mkdir $out/bin
 
-              echo '${wrapper}' > $out/bin/${pname}
-              echo "  exec ${pkgs.nodejs_18}/bin/node $out/opt/index.js" >> $out/bin/${pname}
+            echo '${wrapper}' > $out/bin/${pname}
+            echo "  exec ${pkgs.nodejs_18}/bin/node $out/opt/index.js" >> $out/bin/${pname}
 
-              chmod +x $out/bin/${pname}
-            '';
-          };
-
-          formatter = inputs.alejandra.packages.${system}.default;
-
-          devShells.default = pkgs.mkShell {
-            packages = [
-              pkgs.nodejs_18
-              pkgs.ffmpeg-full
-              inputs.tone.packages.${system}.default
-              inputs.nixd.packages.${system}.default
-              inputs.alejandra.packages.${system}.default
-            ];
-          };
-        }
-        // {
-          nixosModules.audiobookshelf = import ./module.nix;
+            chmod +x $out/bin/${pname}
+          '';
         };
+
+        formatter = inputs.alejandra.packages.${system}.default;
+
+        devShells.default = pkgs.mkShell {
+          packages = [
+            pkgs.nodejs_18
+            pkgs.ffmpeg-full
+            inputs.tone.packages.${system}.default
+            inputs.nixd.packages.${system}.default
+            inputs.alejandra.packages.${system}.default
+          ];
+        };
+      };
+    }
+    // {
+      nixosModules.audiobookshelf = import ./module.nix;
     };
 }
